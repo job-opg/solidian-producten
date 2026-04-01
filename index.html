@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solidian Producten — FRP Wapeningssystemen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #B43B48;
+            --red-dark: #923038;
+            --red-light: #D4545F;
+            --purple: #3A102E;
+            --white: #FFFFFF;
+            --off-white: #F6F6F6;
+            --gray-100: #F0F0F0;
+            --gray-200: #E5E5E5;
+            --gray-300: #D0D0D0;
+            --gray-400: #B7B7B7;
+            --gray-500: #999999;
+            --gray-600: #666666;
+            --gray-700: #444444;
+            --gray-800: #2A2A2A;
+            --green: #5AA794;
+            --green-light: #E9F3F1;
+            --carbon-black: #1A1A2E;
+            --carbon-gray: #2D2D44;
+            --glass-blue: #4A90D9;
+            --orange: #E67E22;
+            --orange-light: #FFF3E0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-700);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 70px;
+            background: var(--white); border-bottom: 1px solid var(--gray-200);
+            z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+            transition: box-shadow .3s;
+        }
+        .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+        .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .nav-logo img { height: 36px; }
+        .nav-logo span { font-family: 'Titillium Web', sans-serif; font-weight: 700; font-size: 18px; color: var(--purple); }
+
+        /* ── TABS NAV ── */
+        .tabs-bar {
+            position: fixed; top: 70px; left: 0; right: 0; height: 50px;
+            background: var(--purple); z-index: 999;
+            display: flex; align-items: center; justify-content: center; gap: 0;
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+            color: rgba(255,255,255,.6); background: none; border: none; cursor: pointer;
+            padding: 14px 22px; white-space: nowrap; transition: all .3s;
+            border-bottom: 3px solid transparent; letter-spacing: .3px;
+        }
+        .tab-btn:hover { color: rgba(255,255,255,.85); }
+        .tab-btn.active { color: #fff; border-bottom-color: var(--red); }
+
+        .tab-content { display: none; margin-top: 120px; }
+        .tab-content.active { display: block; }
+
+        /* ── COMMON ── */
+        .section { padding: 80px 40px; }
+        .section-alt { background: var(--off-white); }
+        .section-dark { background: var(--carbon-black); color: var(--white); }
+        .section-dark .section-subtitle { color: rgba(255,255,255,.5); }
+        .section-dark h2 { color: var(--white); }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-subtitle {
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            color: var(--red); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px;
+        }
+        h2 {
+            font-family: 'Titillium Web', sans-serif; font-size: 36px; font-weight: 700;
+            color: var(--purple); line-height: 1.2; margin-bottom: 14px;
+        }
+        h3 {
+            font-family: 'Titillium Web', sans-serif; font-size: 24px; font-weight: 700;
+            color: var(--purple); margin-bottom: 8px;
+        }
+        .section-desc { font-size: 16px; color: var(--gray-600); max-width: 650px; margin: 0 auto; line-height: 1.8; }
+
+        /* ── HERO (only on Overzicht tab) ── */
+        .hero {
+            min-height: 460px;
+            background: linear-gradient(135deg, rgba(58,16,46,.92) 0%, rgba(180,59,72,.85) 50%, rgba(90,167,148,.7) 100%),
+                        url('https://www.solidian-kelteks.com/images/references/Bosporous_bridge/solidian-references-bosporous-bridge-1.jpg') center/cover;
+            display: flex; align-items: center; padding: 60px 40px; position: relative; overflow: hidden;
+        }
+        .hero::after { content:''; position:absolute; bottom:0; left:0; right:0; height:100px; background:linear-gradient(to top,var(--white),transparent); }
+        .hero-content { max-width: 700px; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-block; background: rgba(255,255,255,.15); backdrop-filter: blur(10px);
+            color: var(--white); font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase; padding: 7px 18px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,.25); margin-bottom: 20px;
+        }
+        .hero h1 { font-family:'Titillium Web',sans-serif; font-size:48px; font-weight:700; color:#fff; line-height:1.15; margin-bottom:18px; }
+        .hero h1 em { font-style:normal; color:var(--green-light); }
+        .hero p { font-size:17px; color:rgba(255,255,255,.85); line-height:1.8; max-width:560px; margin-bottom:28px; }
+        .hero-stats { display:flex; gap:36px; }
+        .hero-stat-value { font-family:'Titillium Web',sans-serif; font-size:32px; font-weight:700; color:#fff; }
+        .hero-stat-label { font-size:12px; color:rgba(255,255,255,.65); text-transform:uppercase; letter-spacing:1px; }
+
+        /* ── CARDS ── */
+        .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+        .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+        .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+        .card {
+            background:var(--white); border:1px solid var(--gray-200); border-radius:12px;
+            padding:28px 22px; text-align:center; transition:transform .3s,box-shadow .3s;
+        }
+        .card:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.07); }
+        .card-icon { width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:24px; }
+        .card-icon.red { background:rgba(180,59,72,.1); }
+        .card-icon.green { background:rgba(90,167,148,.1); }
+        .card-icon.purple { background:rgba(58,16,46,.1); }
+        .card-icon.blue { background:rgba(74,144,217,.1); }
+        .card h4 { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+        .card p { font-size:13px; color:var(--gray-600); line-height:1.6; }
+
+        /* ── FIBER CARDS ── */
+        .fiber-card { border-radius:14px; padding:32px 24px; }
+        .fiber-card.carbon { background:linear-gradient(135deg,#1A1A2E,#2D2D44); color:#fff; }
+        .fiber-card.glass { background:linear-gradient(135deg,#E9F3F1,#D4EDE7); color:var(--gray-800); }
+        .fiber-card.basalt { background:linear-gradient(135deg,#3E2723,#5D4037); color:#fff; }
+        .fiber-card h4 { font-family:'Titillium Web',sans-serif; font-size:20px; font-weight:700; margin-bottom:4px; }
+        .fiber-subtitle { font-size:12px; opacity:.7; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+        .fiber-specs { list-style:none; }
+        .fiber-specs li { font-size:13px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; }
+        .fiber-card.glass .fiber-specs li { border-color:rgba(0,0,0,.08); }
+        .spec-label { opacity:.7; }
+        .spec-value { font-weight:600; }
+
+        /* ── PRODUCT BLOCKS ── */
+        .product-block {
+            display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;
+            margin-bottom:60px; padding-bottom:60px; border-bottom:1px solid var(--gray-200);
+        }
+        .product-block:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+        .product-block.reverse { direction:rtl; }
+        .product-block.reverse > * { direction:ltr; }
+        .product-images { position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3; background:var(--gray-100); }
+        .product-images img { width:100%; height:100%; object-fit:cover; display:block; }
+        .product-tag {
+            position:absolute; top:14px; left:14px; background:var(--red); color:#fff;
+            font-family:'Inter',sans-serif; font-size:10px; font-weight:700; letter-spacing:1.5px;
+            text-transform:uppercase; padding:5px 12px; border-radius:6px;
+        }
+        .product-type { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--red); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px; }
+        .product-info h3 { font-size:28px; margin-bottom:6px; }
+        .product-desc { font-size:14px; color:var(--gray-600); line-height:1.8; margin-bottom:20px; }
+        .product-features { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+        .product-feature { display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--gray-700); }
+        .check { flex-shrink:0; width:18px; height:18px; background:var(--green-light); color:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; margin-top:2px; }
+        .product-variants { background:var(--off-white); border-radius:8px; padding:14px 16px; margin-bottom:16px; }
+        .product-variants h5 { font-family:'Inter',sans-serif; font-size:11px; font-weight:600; color:var(--gray-500); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+        .variant-tags { display:flex; flex-wrap:wrap; gap:5px; }
+        .variant-tag { background:var(--white); border:1px solid var(--gray-300); border-radius:5px; padding:3px 10px; font-size:12px; font-weight:500; color:var(--gray-700); }
+        .cert-badges { display:flex; gap:8px; flex-wrap:wrap; }
+        .cert-badge {
+            display:inline-flex; align-items:center; gap:5px; background:rgba(180,59,72,.06);
+            border:1px solid rgba(180,59,72,.15); border-radius:5px; padding:4px 10px;
+            font-family:'Inter',sans-serif; font-size:11px; font-weight:600; color:var(--red);
+        }
+
+        /* ── TABLES ── */
+        .table-wrap { overflow-x:auto; border-radius:10px; border:1px solid var(--gray-200); margin-bottom:32px; }
+        .tbl { width:100%; border-collapse:collapse; font-size:13px; }
+        .tbl thead th {
+            background:var(--purple); color:#fff; font-family:'Inter',sans-serif; font-weight:600;
+            font-size:11px; text-transform:uppercase; letter-spacing:.8px; padding:12px 14px; text-align:left; white-space:nowrap;
+        }
+        .tbl tbody td { padding:10px 14px; border-bottom:1px solid var(--gray-200); }
+        .tbl tbody tr:nth-child(even) { background:var(--off-white); }
+        .tbl tbody tr:hover { background:rgba(180,59,72,.04); }
+        .tbl .highlight { background:rgba(90,167,148,.08); font-weight:600; }
+        .tbl .solidian-row { background:rgba(180,59,72,.06) !important; font-weight:600; }
+
+        /* ── COMPARISON CARDS ── */
+        .comp-block { margin-bottom:60px; padding-bottom:40px; border-bottom:1px solid var(--gray-200); }
+        .comp-block:last-child { border-bottom:none; }
+        .comp-header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+        .comp-header h3 { margin:0; }
+        .comp-header .comp-tag {
+            font-family:'Inter',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase;
+            letter-spacing:1.5px; padding:4px 12px; border-radius:20px;
+        }
+        .comp-tag.leader { background:var(--green-light); color:var(--green); }
+        .comp-tag.strong { background:var(--orange-light); color:var(--orange); }
+        .comp-verdict {
+            background:var(--off-white); border-left:4px solid var(--red); border-radius:0 8px 8px 0;
+            padding:16px 20px; margin-top:20px; font-size:14px; line-height:1.7;
+        }
+        .comp-verdict strong { color:var(--red); }
+
+        /* ── SCORE BARS ── */
+        .score-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+        .score-label { width:120px; font-size:12px; font-weight:500; color:var(--gray-600); flex-shrink:0; }
+        .score-bar-bg { flex:1; height:8px; background:var(--gray-200); border-radius:4px; overflow:hidden; }
+        .score-bar { height:100%; border-radius:4px; transition:width .6s ease; }
+        .score-bar.red { background:var(--red); }
+        .score-bar.green { background:var(--green); }
+        .score-bar.purple { background:var(--purple); }
+        .score-bar.gray { background:var(--gray-500); }
+        .score-val { width:36px; text-align:right; font-family:'Inter',sans-serif; font-size:12px; font-weight:700; color:var(--gray-700); }
+
+        /* ── ENGINEERING ── */
+        .eng-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+        .eng-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:28px; }
+        .eng-card h4 { font-family:'Titillium Web',sans-serif; font-size:18px; font-weight:700; margin-bottom:14px; color:var(--white); }
+        .eng-card p,.eng-card li { font-size:13px; line-height:1.8; color:rgba(255,255,255,.75); }
+        .eng-card ul { list-style:none; }
+        .eng-card li { padding:3px 0 3px 16px; position:relative; }
+        .eng-card li::before { content:''; position:absolute; left:0; top:11px; width:5px; height:5px; border-radius:50%; background:var(--red); }
+        .formula-block { background:rgba(0,0,0,.3); border-radius:6px; padding:14px 18px; margin:10px 0; font-family:'Courier New',monospace; font-size:14px; color:var(--green-light); overflow-x:auto; }
+
+        /* ── CERT LIST ── */
+        .cert-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+        .cert-card { border-radius:12px; padding:24px; border:1px solid var(--gray-200); }
+        .cert-card h4 { font-size:16px; margin-bottom:4px; }
+        .cert-card .cert-id { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--red); margin-bottom:10px; }
+        .cert-card p { font-size:13px; color:var(--gray-600); line-height:1.6; }
+        .cert-card .cert-products { margin-top:10px; display:flex; flex-wrap:wrap; gap:4px; }
+        .cert-product { background:var(--off-white); padding:2px 8px; border-radius:4px; font-size:11px; font-weight:500; color:var(--gray-700); }
+
+        /* ── APP CARDS ── */
+        .app-card { position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; cursor:pointer; }
+        .app-card img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+        .app-card:hover img { transform:scale(1.05); }
+        .app-card-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(58,16,46,.9) 0%,transparent 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; }
+        .app-card-overlay h4 { font-family:'Titillium Web',sans-serif; font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
+        .app-card-overlay p { font-size:12px; color:rgba(255,255,255,.75); }
+
+        /* ── COMPARE COLUMNS ── */
+        .compare-col { border-radius:12px; padding:28px; }
+        .compare-col.pro { background:var(--green-light); }
+        .compare-col.con { background:#FFF3F0; }
+        .compare-col h4 { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+        .compare-col.pro h4 { color:var(--green); }
+        .compare-col.con h4 { color:var(--red); }
+        .compare-col ul { list-style:none; }
+        .compare-col li { font-size:14px; padding:8px 0; border-bottom:1px solid rgba(0,0,0,.06); color:var(--gray-700); }
+
+        /* ── FOOTER ── */
+        .footer { background:var(--gray-800); color:rgba(255,255,255,.6); padding:32px 40px; text-align:center; font-size:13px; }
+        .footer a { color:var(--red-light); text-decoration:none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:1024px) {
+            .tabs-bar { justify-content:flex-start; padding:0 16px; }
+            .tab-btn { padding:14px 16px; font-size:12px; }
+        }
+        @media (max-width:900px) {
+            .hero h1 { font-size:32px; }
+            h2 { font-size:28px; }
+            .product-block,.product-block.reverse { grid-template-columns:1fr; direction:ltr; }
+            .grid-4 { grid-template-columns:repeat(2,1fr); }
+            .grid-3,.eng-grid,.cert-grid,.grid-2 { grid-template-columns:1fr; }
+            .hero-stats { gap:20px; flex-wrap:wrap; }
+        }
+        @media (max-width:600px) {
+            .section { padding:50px 16px; }
+            .hero { padding:40px 16px; min-height:380px; }
+            .hero h1 { font-size:26px; }
+            .grid-4 { grid-template-columns:1fr; }
+            .product-features { grid-template-columns:1fr; }
+            .tabs-bar { height:44px; }
+            .tab-btn { padding:12px 12px; font-size:11px; }
+            .tab-content { margin-top:114px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+    <a href="#" class="nav-logo">
+        <img src="https://www.solidian-kelteks.com/images/logo/solidiankelteks.png" alt="Solidian">
+        <span>Productoverzicht</span>
+    </a>
+</nav>
+
+<!-- TAB BAR -->
+<div class="tabs-bar">
+    <button class="tab-btn active" data-tab="overzicht">Overzicht</button>
+    <button class="tab-btn" data-tab="producten">Producten</button>
+    <button class="tab-btn" data-tab="specs">Specificaties</button>
+    <button class="tab-btn" data-tab="concurrentie">Concurrentie</button>
+    <button class="tab-btn" data-tab="engineering">Engineering</button>
+    <button class="tab-btn" data-tab="certificeringen">Certificeringen</button>
+    <button class="tab-btn" data-tab="referenties">Referenties</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 1: OVERZICHT                                -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-overzicht">
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Fiber Reinforced Polymer</div>
+            <h1>De toekomst van <em>wapening</em> is niet-metallisch</h1>
+            <p>Solidian ontwikkelt FRP-wapeningssystemen op basis van carbon-, glas- en basaltvezels. Corrosievrij, lichter dan staal en met een levensduur van meer dan 100 jaar.</p>
+            <div class="hero-stats">
+                <div><div class="hero-stat-value">100+</div><div class="hero-stat-label">Jaar levensduur</div></div>
+                <div><div class="hero-stat-value">-30%</div><div class="hero-stat-label">CO&#8322; footprint</div></div>
+                <div><div class="hero-stat-value">-50%</div><div class="hero-stat-label">Minder grondstoffen</div></div>
+                <div><div class="hero-stat-value">0%</div><div class="hero-stat-label">Corrosie</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principe -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Hoofdprincipe</div>
+                <h2>Waarom FRP-wapening?</h2>
+                <p class="section-desc">Alle Solidian-systemen zijn gebaseerd op Fiber Reinforced Polymer (FRP) &mdash; niet-metalen wapening die de bouwwereld fundamenteel verandert.</p>
+            </div>
+            <div class="grid-4">
+                <div class="card"><div class="card-icon red">&#9878;</div><h4>Corrosievrij</h4><p>Geen roest, geschikt voor agressieve milieus (MX3&ndash;MX5). Ideaal voor maritieme en chemische omgevingen.</p></div>
+                <div class="card"><div class="card-icon green">&#9889;</div><h4>Extreem sterk</h4><p>Carbon FRP treksterkte tot &ge;2.600 N/mm&sup2; op vezelniveau. Vele malen sterker dan staal per gewichtseenheid.</p></div>
+                <div class="card"><div class="card-icon purple">&#9881;</div><h4>Lichtgewicht</h4><p>Tot 75% lichter dan staal. Eenvoudiger transport, lagere kraankosten op de bouwplaats.</p></div>
+                <div class="card"><div class="card-icon blue">&#8987;</div><h4>Duurzaam &amp; slank</h4><p>Minder betondekking nodig. Slankere constructies mogelijk. Levensduur &gt;100 jaar.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vezels -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Materialen</div>
+                <h2>Drie vezelsoorten, elk hun kracht</h2>
+            </div>
+            <div class="grid-3">
+                <div class="fiber-card carbon">
+                    <h4>Carbonvezel (CFRP)</h4><div class="fiber-subtitle">Hoogste prestatie</div>
+                    <ul class="fiber-specs">
+                        <li><span class="spec-label">Treksterkte</span><span class="spec-value">&ge;2.600 MPa</span></li>
+                        <li><span class="spec-label">E-modulus</span><span class="spec-value">~97 GPa</span></li>
+                        <li><span class="spec-label">Ontwerpspanning</span><span class="spec-value">&le;0,5 &times; f<sub>fk</sub></span></li>
+                        <li><span class="spec-label">Gewicht</span><span class="spec-value">~1,6 g/cm&sup3;</span></li>
+                    </ul>
+                </div>
+                <div class="fiber-card glass">
+                    <h4>Glasvezel (GFRP)</h4><div class="fiber-subtitle">Economisch &amp; isolerend</div>
+                    <ul class="fiber-specs">
+                        <li><span class="spec-label">Treksterkte</span><span class="spec-value">~1.000 MPa</span></li>
+                        <li><span class="spec-label">E-modulus</span><span class="spec-value">~50 GPa</span></li>
+                        <li><span class="spec-label">Ontwerpspanning</span><span class="spec-value">&le;0,3 &times; f<sub>fk</sub></span></li>
+                        <li><span class="spec-label">Gewicht</span><span class="spec-value">~2,1 g/cm&sup3;</span></li>
+                    </ul>
+                </div>
+                <div class="fiber-card basalt">
+                    <h4>Basaltvezel</h4><div class="fiber-subtitle">Tussenoplossing</div>
+                    <ul class="fiber-specs">
+                        <li><span class="spec-label">Treksterkte</span><span class="spec-value">~1.200 MPa</span></li>
+                        <li><span class="spec-label">E-modulus</span><span class="spec-value">~70 GPa</span></li>
+                        <li><span class="spec-label">Temperatuur</span><span class="spec-value">Beter dan glas</span></li>
+                        <li><span class="spec-label">Gewicht</span><span class="spec-value">~1,9 g/cm&sup3;</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bedrijf -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Over het bedrijf</div>
+                <h2>Solidian &amp; Kelteks</h2>
+                <p class="section-desc">Opgericht in 2013 als onderdeel van de Groz-Beckert Group. Europees marktleider in niet-corrosieve FRP-wapening.</p>
+            </div>
+            <div class="grid-4">
+                <div class="card"><div style="font-family:'Titillium Web',sans-serif; font-size:28px; font-weight:700; color:var(--red); margin-bottom:4px;">2013</div><p>Opgericht</p></div>
+                <div class="card"><div style="font-family:'Titillium Web',sans-serif; font-size:28px; font-weight:700; color:var(--red); margin-bottom:4px;">~270</div><p>Medewerkers</p></div>
+                <div class="card"><div style="font-family:'Titillium Web',sans-serif; font-size:28px; font-weight:700; color:var(--red); margin-bottom:4px;">6</div><p>Locaties</p></div>
+                <div class="card"><div style="font-family:'Titillium Web',sans-serif; font-size:28px; font-weight:700; color:var(--red); margin-bottom:4px;">30+</div><p>Jaar vezelervaring</p></div>
+            </div>
+            <div class="grid-2" style="margin-top:28px;">
+                <div style="background:var(--off-white); border-radius:12px; padding:24px;">
+                    <h4 style="font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:var(--purple); margin-bottom:12px;">Locaties</h4>
+                    <div style="font-size:14px; color:var(--gray-700); line-height:2;">
+                        &#127465;&#127466; <strong>Albstadt</strong> &mdash; Hoofdkantoor<br>
+                        &#127465;&#127466; <strong>Stuttgart &amp; Freiburg</strong><br>
+                        &#127469;&#127479; <strong>Karlovac</strong> &mdash; Kelteks productie<br>
+                        &#127481;&#127479; <strong>Izmir</strong> &mdash; Turkije<br>
+                        &#127467;&#127479; <strong>Pouilly-sur-Loire</strong> &mdash; Frankrijk
+                    </div>
+                </div>
+                <div style="background:var(--off-white); border-radius:12px; padding:24px;">
+                    <h4 style="font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:var(--purple); margin-bottom:12px;">FRP vs Staal &mdash; Kernvoordelen</h4>
+                    <div style="font-size:14px; color:var(--gray-700); line-height:2;">
+                        &#10003; Geen corrosie (MX3/MX4/MX5)<br>
+                        &#10003; Tot 75% lichter<br>
+                        &#10003; Levensduur &gt;100 jaar<br>
+                        &#10003; 30% lagere CO&#8322;-footprint<br>
+                        &#10003; Niet-magnetisch &amp; elektrisch isolerend
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 2: PRODUCTEN                                -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-producten">
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Productportfolio</div>
+                <h2>Tien productgroepen, &eacute;&eacute;n filosofie</h2>
+                <p class="section-desc">Van structurele betonwapening tot seismische retrofit.</p>
+            </div>
+
+            <!-- GRID -->
+            <div class="product-block">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/GIRD%20carbon%201.webp" alt="GRID" loading="lazy"><span class="product-tag">Bestseller</span></div>
+                <div class="product-info">
+                    <div class="product-type">Structurele wapening</div><h3>GRID</h3>
+                    <p class="product-desc">Stijve, netvormige wapening voor constructief beton. Eerste carbonwapeningsnet met algemene bouwgoedkeuring (abZ) van het DIBt.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Hoog draagvermogen</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Tot 6 lagen wapening</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Plaat: 6,0 &times; 2,30 m</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Beton C30/37&ndash;C70/85</div>
+                    </div>
+                    <div class="product-variants"><h5>Varianten</h5><div class="variant-tags"><span class="variant-tag">GRID Carbon</span><span class="variant-tag">GRID Glass</span><span class="variant-tag">GRID CARBOrefit</span><span class="variant-tag">GRID Fix</span><span class="variant-tag">eGRID</span></div></div>
+                    <div class="cert-badges"><span class="cert-badge">abZ Z-1.6-308</span><span class="cert-badge">CE (EAD 260057)</span><span class="cert-badge">EPD</span></div>
+                </div>
+            </div>
+
+            <!-- FLEX GRID -->
+            <div class="product-block reverse">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian%20FLEX%20GRID%20Carbon_004_web.webp" alt="FLEX GRID" loading="lazy"><span class="product-tag">Flexibel</span></div>
+                <div class="product-info">
+                    <div class="product-type">Flexibele wapening</div><h3>FLEX GRID</h3>
+                    <p class="product-desc">Flexibele netten voor complexe geometrie&euml;n. Ideaal voor renovatie, versterking en dunne mortellagen.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Vervormbaar &amp; flexibel</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>5 materiaaltypes</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>65&ndash;580 g/m&sup2;</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Op rollen leverbaar</div>
+                    </div>
+                    <div class="product-variants"><h5>Materialen</h5><div class="variant-tags"><span class="variant-tag">AR Glass (13x)</span><span class="variant-tag">Carbon</span><span class="variant-tag">Basalt (3x)</span><span class="variant-tag">Hybrid</span><span class="variant-tag">Standard (10+x)</span></div></div>
+                </div>
+            </div>
+
+            <!-- BRIKSY -->
+            <div class="product-block">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian%20Briksy%20Carbon%20011_web.jpg" alt="BRIKSY" loading="lazy"><span class="product-tag">Metselwerk</span></div>
+                <div class="product-info">
+                    <div class="product-type">Metselwerkwapening</div><h3>BRIKSY</h3>
+                    <p class="product-desc">Lintvoegwapening voor metselwerk en cellenbeton. Corrosievrij alternatief voor staal. Op maat te snijden zonder speciaal gereedschap.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Scheurbeheersing</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Gevelstabilisatie</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Dunbed-compatibel</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Breedtes 40&ndash;150 mm</div>
+                    </div>
+                    <div class="cert-badges"><span class="cert-badge">CE (EAD 260057)</span><span class="cert-badge">EN 846-2</span></div>
+                </div>
+            </div>
+
+            <!-- REBAR -->
+            <div class="product-block reverse">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian-rebar-carbon-1.jpg" alt="REBAR" loading="lazy"><span class="product-tag">Staven</span></div>
+                <div class="product-info">
+                    <div class="product-type">Staafwapening</div><h3>REBAR</h3>
+                    <p class="product-desc">Lichtgewicht, corrosievrij alternatief voor stalen wapening. Carbon &ge;2.000 MPa. Lengtes 6&ndash;12 m.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Diameter 4&ndash;16 mm</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>&ge;2.000 MPa (carbon)</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Chloride-resistent</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>&ge;67% vezelinhoud (glas)</div>
+                    </div>
+                    <div class="product-variants"><h5>Materialen</h5><div class="variant-tags"><span class="variant-tag">Carbon &Oslash;4&ndash;12</span><span class="variant-tag">Glass &Oslash;4&ndash;16</span></div></div>
+                </div>
+            </div>
+
+            <!-- ANTISEISMIC -->
+            <div class="product-block">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian%20ANTISEISMIC%20Connector%20L-Shape_001_web.webp" alt="ANTISEISMIC" loading="lazy"><span class="product-tag">Seismisch</span></div>
+                <div class="product-info">
+                    <div class="product-type">Versterking &amp; retrofit</div><h3>ANTISEISMIC</h3>
+                    <p class="product-desc">Compleet systeem voor seismische versterking. Geschikt voor FRCM/CRM-systemen.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Dynamische belasting</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>FRCM/CRM compatibel</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>L-shape connectoren</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Hoekstukken</div>
+                    </div>
+                    <div class="product-variants"><h5>Componenten</h5><div class="variant-tags"><span class="variant-tag">Grid</span><span class="variant-tag">Flex Grid</span><span class="variant-tag">Wrap</span><span class="variant-tag">Connector LCO</span><span class="variant-tag">Connector OE</span></div></div>
+                    <div class="cert-badges"><span class="cert-badge">ETA 23/0383</span><span class="cert-badge">ETA voor CRM</span></div>
+                </div>
+            </div>
+
+            <!-- ANTICRACK -->
+            <div class="product-block reverse">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian%20ANTICRACK_007_web.webp" alt="ANTICRACK" loading="lazy"><span class="product-tag">Scheurbeheersing</span></div>
+                <div class="product-info">
+                    <div class="product-type">Scheurbeheersing</div><h3>ANTICRACK</h3>
+                    <p class="product-desc">Carbon netten met geschuurd oppervlak voor verbeterde hechting. Geoptimaliseerd voor minimale scheurwijdtes.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Verbeterde hechting</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Kleine scheurwijdtes</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Korte verankering</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Reparatie &amp; overlay</div>
+                    </div>
+                    <div class="cert-badges"><span class="cert-badge">CE (EAD 260057)</span></div>
+                </div>
+            </div>
+
+            <!-- HYDRO -->
+            <div class="product-block">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/references/Swimming-pool-reinforced-with-solidian-ANTICRACK/solidian-references-Swimming-pool-reinforced-with-solidian-ANTICRACK-1.jpg" alt="HYDRO" loading="lazy"><span class="product-tag">Waterdicht</span></div>
+                <div class="product-info">
+                    <div class="product-type">Waterdichting</div><h3>HYDRO</h3>
+                    <p class="product-desc">Speciaal voor waterdichte systemen. Bestand tegen vocht, chloor en UV.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Chloorbestendig</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>UV-bestendig</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Kelders &amp; waterbouw</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Daken &amp; balkons</div>
+                    </div>
+                    <div class="product-variants"><h5>Modellen</h5><div class="variant-tags"><span class="variant-tag">Hydro 70 (5&times;4 mm, 70 g/m&sup2;)</span><span class="variant-tag">Hydro 120 (9&times;9 mm, 120 g/m&sup2;)</span></div></div>
+                </div>
+            </div>
+
+            <!-- CONNECTOREN -->
+            <div class="product-block reverse">
+                <div class="product-images"><img src="https://www.solidian-kelteks.com/images/webshop/product/solidian%20ANTISEISMIC%20Connector%20L-Shape_002_web.webp" alt="Connectoren" loading="lazy"><span class="product-tag">Verankering</span></div>
+                <div class="product-info">
+                    <div class="product-type">Connectoren &amp; ankers</div><h3>Connectoren</h3>
+                    <p class="product-desc">Niet-metalen ankers als corrosievrij alternatief voor stalen spouwankers.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Diameter 8 mm</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>L-shape &amp; Open End</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Endless Rope</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Op lengte snijdbaar</div>
+                    </div>
+                    <div class="cert-badges"><span class="cert-badge">ETA 23/0383 (LCO)</span></div>
+                </div>
+            </div>
+
+            <!-- NATURAL -->
+            <div class="product-block">
+                <div class="product-images" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9); display:flex; align-items:center; justify-content:center;">
+                    <div style="text-align:center; padding:40px;"><div style="font-size:56px; margin-bottom:12px;">&#127793;</div><div style="font-family:'Titillium Web',sans-serif; font-size:22px; font-weight:700; color:#2E7D32;">Biobased</div><div style="font-size:13px; color:#558B2F;">Vlasvezel</div></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-type">Biobased wapening</div><h3>NATURAL</h3>
+                    <p class="product-desc">Biobased wapening op basis van vlasvezel. Voor niet-structurele toepassingen en CO&#8322;-reductie projecten.</p>
+                    <div class="product-features">
+                        <div class="product-feature"><span class="check">&#10003;</span>Biobased (vlas)</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>CO&#8322;-reductie</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Lichtgewicht</div>
+                        <div class="product-feature"><span class="check">&#10003;</span>Duurzame bouw</div>
+                    </div>
+                    <div class="product-variants"><h5>Producten</h5><div class="variant-tags"><span class="variant-tag">NATURAL Grid</span><span class="variant-tag">NATURAL Complex</span><span class="variant-tag">Flax Woven Roving</span></div></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 3: SPECIFICATIES                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-specs">
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Technische data</div>
+                <h2>Specificaties per productgroep</h2>
+            </div>
+
+            <h3>GRID Carbon</h3>
+            <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">Treksterkte &ge;1.200 MPa (composiet) / &ge;2.600 MPa (vezel) &bull; E-modulus ~97 GPa &bull; -20&deg;C tot +40&deg;C continu, pieken 80&deg;C</p>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Model</th><th>Maaswijdte</th><th>Gewicht (g/m&sup2;)</th><th>Plaat</th></tr></thead><tbody>
+                <tr><td>Q27-CCE-68</td><td>68 mm</td><td>183</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q43-CCE-21</td><td>21 mm</td><td>280</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q47-CCE-38</td><td>38 mm</td><td>309</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q71-CCE-51</td><td>51 mm</td><td>454</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q85-CCE-21</td><td>21 mm</td><td>512</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q95-CCE-38</td><td>38 mm</td><td>559</td><td>6,0&times;2,30 m</td></tr>
+                <tr><td>Q122-CCE-59</td><td>59 mm</td><td>709</td><td>6,0&times;2,30 m</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:40px;">REBAR Carbon</h3>
+            <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">Treksterkte &ge;2.000 MPa &bull; Chloride- en alkaliresistent &bull; 6 m standaard, 12 m op aanvraag</p>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>&Oslash; (mm)</th><th>Gewicht (g/m)</th><th>Lengte</th></tr></thead><tbody>
+                <tr><td>4</td><td>23</td><td>6 m</td></tr>
+                <tr><td>6</td><td>49</td><td>6 m</td></tr>
+                <tr><td>8</td><td>90</td><td>6 m</td></tr>
+                <tr><td>10</td><td>134</td><td>6 m</td></tr>
+                <tr><td>12</td><td>190</td><td>6 m</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:40px;">REBAR Glass</h3>
+            <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">ECR-glas &bull; Epoxyhars &bull; Vezelinhoud &ge;67% &bull; 2,14&ndash;2,16 g/cm&sup3; &bull; CTE ~6,1&times;10<sup>-6</sup>/K</p>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Nominaal &Oslash;</th><th>Buiten-&Oslash;</th><th>Profilering</th></tr></thead><tbody>
+                <tr><td>6 mm</td><td>7,0 mm</td><td>Zandcoating / ribbels</td></tr>
+                <tr><td>8 mm</td><td>9,5 mm</td><td>Zandcoating / ribbels</td></tr>
+                <tr><td>10 mm</td><td>11,5 mm</td><td>Zandcoating / ribbels</td></tr>
+                <tr><td>16 mm</td><td>18,4 mm</td><td>Zandcoating / ribbels</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:40px;">BRIKSY</h3>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Product</th><th>Materiaal</th><th>Gewicht (g/m&sup2;)</th><th>Breedtes</th></tr></thead><tbody>
+                <tr><td>Briksy Glass</td><td>AR Glass (GFRP)</td><td>860</td><td>40 / 50 / 75 / 100 / 150 mm</td></tr>
+                <tr><td>Briksy Carbon</td><td>Carbon (CFRP)</td><td>620</td><td>40 / 50 / 75 / 100 / 150 mm</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:40px;">ANTICRACK</h3>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Model</th><th>Maaswijdte</th><th>Gewicht (g/m&sup2;)</th><th>Certificering</th></tr></thead><tbody>
+                <tr><td>Q43-CCE-21</td><td>21 mm</td><td>717</td><td>CE-mark</td></tr>
+                <tr><td>Q47-CCE-38</td><td>38 mm</td><td>722</td><td>CE-mark</td></tr>
+                <tr><td>Q85-CCE-21</td><td>21 mm</td><td>929</td><td>CE-mark</td></tr>
+                <tr><td>Q95-CCE-38</td><td>38 mm</td><td>929</td><td>CE-mark</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:40px;">FLEX GRID AR Glass (selectie)</h3>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Model</th><th>Maaswijdte</th><th>Gewicht (g/m&sup2;)</th></tr></thead><tbody>
+                <tr><td>ARG 130</td><td>12&times;10 mm</td><td>130</td></tr>
+                <tr><td>ARG 240</td><td>5&times;5 mm</td><td>248</td></tr>
+                <tr><td>ARG 300</td><td>18&times;18 mm</td><td>305</td></tr>
+                <tr><td>ARG 350</td><td>30&times;30 mm</td><td>350</td></tr>
+                <tr><td>ARG 460</td><td>25&times;25 mm</td><td>460</td></tr>
+                <tr><td>ARG 550</td><td>18&times;16 mm</td><td>550</td></tr>
+                <tr><td>ARG 580</td><td>35&times;30 mm</td><td>580</td></tr>
+            </tbody></table></div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 4: CONCURRENTIE                             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-concurrentie">
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Marktanalyse</div>
+                <h2>Solidian vs. Concurrentie</h2>
+                <p class="section-desc">Per productgroep de belangrijkste alternatieven vergeleken op prestatie, certificering, prijs en duurzaamheid.</p>
+            </div>
+
+            <!-- ── GRID ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>GRID &mdash; Structurele netten</h3><span class="comp-tag leader">Marktleider</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Treksterkte (MPa)</th><th>E-mod (GPa)</th><th>Formaat</th><th>Certificering</th><th>Prijs (est.)</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian GRID</strong></td><td>Carbon</td><td>&ge;1.200 (comp)</td><td>~97</td><td>6,0&times;2,30 m</td><td>abZ Z-1.6-308, CE, EPD</td><td>&euro;50&ndash;80/m&sup2;</td></tr>
+                    <tr><td>V.FRAAS SITgrid</td><td>Carbon/Glas</td><td>1.000&ndash;1.500</td><td>80&ndash;100</td><td>Rollen ~1,20 m</td><td>ZiE-gebaseerd</td><td>&euro;40&ndash;80/m&sup2;</td></tr>
+                    <tr><td>Hitexbau/Hentschke</td><td>Carbon</td><td>1.800&ndash;2.400</td><td>85&ndash;95</td><td>~1,20 m breed</td><td>ZiE projectbasis</td><td>&euro;50&ndash;90/m&sup2;</td></tr>
+                    <tr><td>Sch&ouml;ck ComBAR</td><td>GFRP (staven)</td><td>&ge;1.000</td><td>~60</td><td>Staven &Oslash;8&ndash;32</td><td>ETA-17/0603, abZ</td><td>&euro;8&ndash;15/m</td></tr>
+                    <tr><td>Basalt grids (div.)</td><td>Basalt</td><td>600&ndash;1.100</td><td>45&ndash;55</td><td>Rollen 2,0 m</td><td>Sommige CE/ETA</td><td>&euro;5&ndash;20/m&sup2;</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Enige carbon grid met volledige abZ-goedkeuring (geen projectspecifieke ZiE nodig). Grootste plaatformaat (6,0&times;2,30 m) op de markt. Dominante positie in DACH-regio. Concurrenten zijn of duurder, of beperkt tot projectspecifieke goedkeuringen.</div>
+            </div>
+
+            <!-- ── FLEX GRID ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>FLEX GRID &mdash; Flexibele netten</h3><span class="comp-tag leader">Breedste assortiment</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materialen</th><th>Gewicht (g/m&sup2;)</th><th>Maaswijdte</th><th>Focus</th><th>Land</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian FLEX GRID</strong></td><td>AR glas, carbon, basalt, hybride, standaard</td><td>65&ndash;580</td><td>5&ndash;50 mm</td><td>Renovatie + complex</td><td>DE</td></tr>
+                    <tr><td>Mapei Mapegrid</td><td>AR glas, basalt, carbon</td><td>125&ndash;400</td><td>6&ndash;21 mm</td><td>Structureel FRCM</td><td>IT</td></tr>
+                    <tr><td>Kerakoll GeoSteel Grid</td><td>Basalt + RVS</td><td>200&ndash;400</td><td>Beperkt</td><td>Seismisch retrofit</td><td>IT</td></tr>
+                    <tr><td>Saint-Gobain Vertex</td><td>E-glas</td><td>120&ndash;340</td><td>~4 mm</td><td>ETICS standaard</td><td>FR/CZ</td></tr>
+                    <tr><td>Fassa Bortolo Fassanet</td><td>AR glas</td><td>160&ndash;450</td><td>~4 mm</td><td>ETICS + CRM</td><td>IT</td></tr>
+                    <tr><td>Ruregold C-Mesh</td><td>Carbon, PBO</td><td>84&ndash;168</td><td>Op gewicht</td><td>Structureel FRCM</td><td>IT</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Breedste materiaalvariatie (5 types incl. hybride), grootste gewichtsbereik (65&ndash;580 g/m&sup2;) en meeste maaswijdte-opties. Mapei is de sterkste concurrent qua distributie, maar biedt minder flexibiliteit in maatwijdtes en gewichten.</div>
+            </div>
+
+            <!-- ── BRIKSY ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>BRIKSY &mdash; Metselwerkwapening</h3><span class="comp-tag strong">Premium niche</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Corrosievrij</th><th>Dunbed</th><th>Therm. brug</th><th>Prijs (est.)</th><th>Markt</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian BRIKSY</strong></td><td>AR glas / Carbon FRP</td><td>Ja</td><td>Ja</td><td>Nee</td><td>&euro;2,50&ndash;5/m</td><td>Groeiend</td></tr>
+                    <tr><td>Bekaert Murfor</td><td>Verzinkt / RVS staal</td><td>Nee / Deels</td><td>Nee</td><td>Ja</td><td>&euro;0,80&ndash;4/m</td><td>Marktleider</td></tr>
+                    <tr><td>Leviat AMR</td><td>Verzinkt / RVS staal</td><td>Nee / Deels</td><td>Nee</td><td>Ja</td><td>&euro;1&ndash;4,50/m</td><td>Groot</td></tr>
+                    <tr><td>Helifix HeliBars</td><td>RVS staal (helix)</td><td>Deels</td><td>Nee</td><td>Ja</td><td>&euro;2&ndash;3,50/m</td><td>UK/remedial</td></tr>
+                    <tr><td>Generiek staal</td><td>Verzinkt staal</td><td>Nee</td><td>Nee</td><td>Ja</td><td>&euro;0,50&ndash;1/m</td><td>Commodity</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Enige 100% corrosievrije optie zonder thermische brug. Uniek geschikt voor dunbed-lijmwerk (&lt;3 mm voeg). Levenscycluskosten lager dan staal in agressieve milieus. Hoofdconcurrent Bekaert Murfor is 3&ndash;5&times; goedkoper maar corrodeert en past niet in dunbedmortel.</div>
+            </div>
+
+            <!-- ── REBAR ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>REBAR &mdash; Staafwapening</h3><span class="comp-tag leader">Carbon + Glas</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Trek (MPa)</th><th>E-mod (GPa)</th><th>&Oslash; bereik</th><th>EU-cert.</th><th>Prijs/m (&Oslash;12)</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian REBAR</strong></td><td>Carbon + Glas</td><td>&ge;2.000 / &ge;1.000</td><td>~130 / ~55</td><td>4&ndash;16 mm</td><td>Ja</td><td>&euro;3&ndash;15</td></tr>
+                    <tr><td>Sch&ouml;ck ComBAR</td><td>GFRP</td><td>~1.000</td><td>~60</td><td>8&ndash;32 mm</td><td>Ja (abZ, ETA)</td><td>&euro;4&ndash;6</td></tr>
+                    <tr><td>Pultrall V-ROD</td><td>GFRP + CFRP</td><td>700&ndash;2.000</td><td>50&ndash;140</td><td>6&ndash;25 mm</td><td>Beperkt</td><td>&euro;2&ndash;4</td></tr>
+                    <tr><td>Armastek</td><td>GFRP/BFRP/CFRP</td><td>800&ndash;2.100</td><td>45&ndash;150</td><td>4&ndash;20 mm</td><td>Beperkt</td><td>&euro;1&ndash;2</td></tr>
+                    <tr><td>TUF-BAR</td><td>GFRP</td><td>~1.000</td><td>~55</td><td>6&ndash;25 mm</td><td>Nee</td><td>&euro;1&ndash;3</td></tr>
+                    <tr><td>Staal B500B</td><td>Staal</td><td>~500</td><td>~200</td><td>6&ndash;40 mm</td><td>Ja (EN 10080)</td><td>&euro;0,80</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Een van de weinige Europese fabrikanten met zowel carbon &aacute;ls glas FRP rebar + sterke EU-certificering. Kleine diameters (4 mm) zijn uniek t.o.v. Sch&ouml;ck (min. 8 mm) &mdash; essentieel voor dunne prefab elementen. Sch&ouml;ck ComBAR is de sterkste EU-concurrent met bredere diameters (tot 32 mm).</div>
+            </div>
+
+            <!-- ── ANTISEISMIC ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>ANTISEISMIC &mdash; Seismische retrofit</h3><span class="comp-tag strong">Corrosievrij systeem</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Type</th><th>Primaire vezel</th><th>ETA</th><th>Systeem compleet</th><th>Corrosierisico</th><th>Land</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian ANTISEISMIC</strong></td><td>FRCM/CRM</td><td>AR glas + carbon wrap</td><td>ETA 23/0383</td><td>Hoog</td><td>Geen</td><td>DE</td></tr>
+                    <tr><td>Mapei MapeWrap EQ</td><td>FRCM</td><td>AR glas</td><td>ETA-13/0950</td><td>Zeer hoog</td><td>Geen</td><td>IT</td></tr>
+                    <tr><td>Kerakoll GeoSteel</td><td>SRG/FRCM</td><td>UHTSS staal</td><td>ETA-19/0364</td><td>Hoog</td><td>Ja (staal)</td><td>IT</td></tr>
+                    <tr><td>Sika SikaWrap</td><td>FRP (epoxy)</td><td>Carbon</td><td>ETA-13/0203</td><td>Hoog (FRP)</td><td>Geen</td><td>CH</td></tr>
+                    <tr><td>Ruredil X Mesh</td><td>FRCM</td><td>PBO / Carbon / Glas</td><td>ETA-21/0774</td><td>Medium-hoog</td><td>Geen</td><td>IT</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Compleet corrosievrij FRCM/CRM-systeem met ETA-gecertificeerde L-connectoren &mdash; uniek in de markt. Duitse kwaliteitsstandaard. Mapei is de sterkste concurrent met langste trackrecord (post-L'Aquila 2009). Kerakoll biedt hogere treksterkte per laag maar met corrosierisico.</div>
+            </div>
+
+            <!-- ── ANTICRACK ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>ANTICRACK &mdash; Scheurbeheersing</h3><span class="comp-tag leader">Geoptimaliseerd</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Corrosievrij</th><th>Dunne elem.</th><th>CE-mark</th><th>Prijs</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian ANTICRACK</strong></td><td>Carbon (geschuurd)</td><td>Ja</td><td>Ja (&ge;30 mm)</td><td>CE (EAD 260057)</td><td>Premium</td></tr>
+                    <tr><td>Staal lasmat (BSG)</td><td>Staal B500A/B</td><td>Nee</td><td>Nee (&ge;60 mm)</td><td>EN 10080</td><td>Budget</td></tr>
+                    <tr><td>Sch&ouml;ck ComBAR</td><td>GFRP staven</td><td>Ja</td><td>Deels</td><td>ETA, abZ</td><td>Medium</td></tr>
+                    <tr><td>V.FRAAS/TUDALIT</td><td>Carbon textiel</td><td>Ja</td><td>Ja</td><td>abZ (specifiek)</td><td>Premium</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Geschuurd oppervlak geeft superieure hechting en kortere verankeringslengtes dan standaard carbon grids. CE-gemarkeerd specifiek voor scheurbeheersing. Stalen lasmatten zijn 5&ndash;10&times; goedkoper maar vereisen dikkere constructies.</div>
+            </div>
+
+            <!-- ── HYDRO ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>HYDRO &mdash; Waterdichting</h3><span class="comp-tag strong">Gespecialiseerd</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Gewicht (g/m&sup2;)</th><th>Materiaal</th><th>Systeemgebonden</th><th>Distributie</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian HYDRO</strong></td><td>70 / 120</td><td>E-glas</td><td>Nee (universeel)</td><td>Groeiend</td></tr>
+                    <tr><td>Mapei Mapenet 150</td><td>~150</td><td>AR glas, PVC</td><td>Ja (Mapelastic)</td><td>Wereldwijd</td></tr>
+                    <tr><td>Sika mesh</td><td>60&ndash;165</td><td>AR glas</td><td>Ja (SikaTop)</td><td>Wereldwijd</td></tr>
+                    <tr><td>PCI Pecitex</td><td>67 / 120</td><td>AR glas</td><td>Ja (PCI Seccoral)</td><td>DACH</td></tr>
+                    <tr><td>Weber mesh</td><td>90&ndash;160</td><td>AR glas</td><td>Ja (weber.tec)</td><td>Wereldwijd</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Universeel inzetbaar &mdash; niet gebonden aan &eacute;&eacute;n mortelsysteem (Mapei/Sika/PCI zijn systeemgebonden). Directe concurrent PCI Pecitex heeft identieke gewichtsklassen maar is beperkt tot eigen systeem. Nadeel: kleinere distributie dan Mapei/Sika.</div>
+            </div>
+
+            <!-- ── CONNECTOREN ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>Connectoren &mdash; Ankers &amp; spouwverbinders</h3><span class="comp-tag leader">Nul thermische brug</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Therm. geleiding</th><th>Corrosievrij</th><th>ETA</th><th>Land</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian Connectoren</strong></td><td>FRP (glas/carbon/basalt)</td><td>~0,3 W/mK</td><td>Ja</td><td>ETA 23/0383</td><td>DE</td></tr>
+                    <tr><td>Sch&ouml;ck Isolink</td><td>GFRP + RVS opties</td><td>~0,7 W/mK</td><td>Deels</td><td>ETA-13/0160</td><td>DE</td></tr>
+                    <tr><td>Thermomass</td><td>FRP (carbon/glas)</td><td>~0,3&ndash;0,5 W/mK</td><td>Ja</td><td>ICC-ES (VS)</td><td>VS</td></tr>
+                    <tr><td>Helifix DryFix</td><td>RVS staal (helix)</td><td>~15 W/mK</td><td>Deels</td><td>BBA (UK)</td><td>UK</td></tr>
+                    <tr><td>Leviat/Halfen</td><td>RVS + kunststof disc</td><td>~5&ndash;15 W/mK</td><td>Deels</td><td>CE, ETA</td><td>DE/NL</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Nul thermische brug + nul corrosie met ETA-certificering. Sch&ouml;ck Isolink is het sterkste merk maar heeft hogere thermische geleiding (~0,7 vs ~0,3 W/mK). Stalen alternatieven (Helifix, Leviat) creëren significante koudebruggen.</div>
+            </div>
+
+            <!-- ── NATURAL ── -->
+            <div class="comp-block">
+                <div class="comp-header"><h3>NATURAL &mdash; Biobased wapening</h3><span class="comp-tag leader">Enige bouw-grade</span></div>
+                <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Materiaal</th><th>Producttype</th><th>Bouw-toepassing</th><th>Land</th></tr></thead><tbody>
+                    <tr class="solidian-row"><td><strong>Solidian NATURAL</strong></td><td>Vlasvezel</td><td>Grid / Complex / Roving</td><td>Ja (betonwapening)</td><td>DE</td></tr>
+                    <tr><td>Bcomp ampliTex</td><td>Vlas</td><td>Weefsels, tapes</td><td>Nee (automotive)</td><td>CH</td></tr>
+                    <tr><td>Lineo FlaxTape</td><td>Vlas</td><td>UD tapes, prepreg</td><td>Nee (composieten)</td><td>FR/BE</td></tr>
+                    <tr><td>NPSP Composieten</td><td>Vlas + biohars</td><td>Panelen, profielen</td><td>Deels (gevels)</td><td>NL</td></tr>
+                    <tr><td>Depestele Group</td><td>Vlas</td><td>Technische vezels</td><td>Nee (grondstof)</td><td>FR/BE</td></tr>
+                </tbody></table></div>
+                <div class="comp-verdict"><strong>Waarom Solidian:</strong> Enige fabrikant die biobased vlasvezel aanbiedt als bouw-grade betonwapening (grid/mesh formaat). Alle concurrenten zijn ofwel grondstof-leveranciers, ofwel gericht op automotive/composieten. Niche markt maar unieke positie voor CO&#8322;-reductie projecten.</div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 5: ENGINEERING                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-engineering">
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Ontwerpfilosofie</div>
+                <h2>Engineering met FRP</h2>
+                <p class="section-desc" style="color:rgba(255,255,255,.6);">Niet sterkte, maar vervorming en scheurvorming sturen het ontwerp.</p>
+            </div>
+            <div class="eng-grid">
+                <div class="eng-card">
+                    <h4>Geen plastisch gedrag</h4>
+                    <p>FRP is lineair elastisch tot breuk. Geen vloeigrens &mdash; bros falen. Veiligheidsfactoren verplicht.</p>
+                    <div class="formula-block">F<sub>fd</sub> = &eta; &middot; f<sub>fk</sub> / &gamma;<sub>f</sub><br>&eta; = 0,3&ndash;0,7 &nbsp;|&nbsp; &gamma;<sub>f</sub> &asymp; 1,3&ndash;1,5</div>
+                </div>
+                <div class="eng-card">
+                    <h4>SLS is maatgevend</h4>
+                    <p>Bruikbaarheidgrenstoestand stuurt het ontwerp, niet ULS.</p>
+                    <ul>
+                        <li>GFRP: 2&ndash;4&times; grotere doorbuiging dan staal</li>
+                        <li>CFRP: vergelijkbaar met staal</li>
+                        <li>Scheurwijdte gevel: w<sub>max</sub> &asymp; 0,2&ndash;0,3 mm</li>
+                        <li>Waterdicht: w<sub>max</sub> &le; 0,1 mm</li>
+                    </ul>
+                </div>
+                <div class="eng-card">
+                    <h4>Verankering (kritisch!)</h4>
+                    <p>Langere verankeringslengtes nodig dan staal.</p>
+                    <div class="formula-block">l<sub>bd</sub> = &alpha; &middot; &phi; &middot; f<sub>fd</sub><br>2&ndash;4&times; langer dan staal</div>
+                    <ul><li>Briksy/grids: min. 250&ndash;500 mm</li><li>Afhankelijk van profilering</li></ul>
+                </div>
+                <div class="eng-card">
+                    <h4>Draagvermogen (ULS)</h4>
+                    <p>Buiging als EC2, maar zonder plastische drukzone-optimalisatie. Lineair spanningsdiagram.</p>
+                    <div class="formula-block">M<sub>Rd</sub> = A<sub>f</sub> &middot; f<sub>fd</sub> &middot; z<br>z &asymp; 0,9d (beton) &nbsp;|&nbsp; z &asymp; 0,6&ndash;0,8 &times; wand (metselwerk)</div>
+                </div>
+                <div class="eng-card">
+                    <h4>Spanningsbeperking</h4>
+                    <p>Om kruipbreuk te voorkomen:</p>
+                    <div class="formula-block">GFRP: &sigma;<sub>f</sub> &le; 0,3 &middot; f<sub>fk</sub><br>CFRP: &sigma;<sub>f</sub> &le; 0,5 &middot; f<sub>fk</sub></div>
+                </div>
+                <div class="eng-card">
+                    <h4>Normen &amp; richtlijnen</h4>
+                    <p>Nog geen volledige Eurocode voor FRP. Ontwerp sluit aan bij:</p>
+                    <ul>
+                        <li>Eurocode 2 (beton) &amp; 6 (metselwerk)</li>
+                        <li>fib Bulletin 40/90</li>
+                        <li>DAfStb-richtlijn</li>
+                        <li>abZ Z-1.6-308 (GRID carbon)</li>
+                        <li>Internationale FRP-richtlijnen</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FRP vs Staal -->
+            <div class="grid-2" style="margin-top:50px;">
+                <div class="compare-col pro">
+                    <h4>&#10003; Voordelen FRP t.o.v. staal</h4>
+                    <ul>
+                        <li>Geen corrosie &mdash; MX3/MX4/MX5</li>
+                        <li>Minder betondekking &mdash; slankere constructies</li>
+                        <li>Levensduur &gt;100 jaar zonder onderhoud</li>
+                        <li>Tot 75% lichter</li>
+                        <li>30% lagere CO&#8322;-footprint</li>
+                        <li>Niet-magnetisch &amp; isolerend (glas)</li>
+                    </ul>
+                </div>
+                <div class="compare-col con">
+                    <h4>&#9888; Aandachtspunten</h4>
+                    <ul>
+                        <li>Geen plastische vervorming &mdash; bros falen</li>
+                        <li>Beperkte buigbaarheid op bouwplaats</li>
+                        <li>GFRP: lagere stijfheid (~50 vs 200 GPa)</li>
+                        <li>Langere verankeringslengtes</li>
+                        <li>Detailengineering cruciaal</li>
+                        <li>Nog geen volledige Eurocode</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 6: CERTIFICERINGEN                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-certificeringen">
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Goedkeuringen &amp; normen</div>
+                <h2>Certificeringen</h2>
+                <p class="section-desc">Compleet overzicht van alle beschikbare certificeringen &mdash; Solidian &eacute;n concurrenten.</p>
+            </div>
+
+            <h3 style="margin-bottom:20px;">Solidian certificeringen</h3>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h4>abZ Z-1.6-308</h4>
+                    <div class="cert-id">DIBt &mdash; Allgemeine bauaufsichtliche Zulassung</div>
+                    <p>Eerste algemene bouwgoedkeuring ter wereld voor carbon wapeningsnetten. Uitgegeven door het Deutsches Institut f&uuml;r Bautechnik. Geldig voor constructief gebruik in betonconstructies.</p>
+                    <div class="cert-products"><span class="cert-product">GRID Carbon</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>ETA 23/0383</h4>
+                    <div class="cert-id">EAD 340392-00-0104 &mdash; European Technical Assessment</div>
+                    <p>Europese Technische Beoordeling voor FRP connectoren. Beoordeeld volgens EAD 340392 voor niet-metalen ankers in metselwerk- en betonconstructies.</p>
+                    <div class="cert-products"><span class="cert-product">ANTISEISMIC Connector LCO (AR glas)</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>CE-markering</h4>
+                    <div class="cert-id">EAD 260057-00-0303</div>
+                    <p>CE-markering voor FRP wapeningsproducten conform European Assessment Document 260057. Omvat structurele en niet-structurele toepassingen.</p>
+                    <div class="cert-products"><span class="cert-product">GRID Carbon</span><span class="cert-product">ANTICRACK</span><span class="cert-product">BRIKSY</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>ETA voor CRM</h4>
+                    <div class="cert-id">Composite Reinforced Mortar</div>
+                    <p>Europese Technische Beoordeling voor het ANTISEISMIC systeem als Composite Reinforced Mortar (CRM) voor seismische versterking.</p>
+                    <div class="cert-products"><span class="cert-product">ANTISEISMIC systeem</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>EPD</h4>
+                    <div class="cert-id">Environmental Product Declaration</div>
+                    <p>Milieuproductverklaring conform ISO 14025 en EN 15804. Onderbouwt de duurzaamheidsclaims (&minus;30% CO&#8322;, &minus;50% grondstoffen).</p>
+                    <div class="cert-products"><span class="cert-product">GRID Carbon</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>DAfStb-richtlijn</h4>
+                    <div class="cert-id">Deutscher Ausschuss f&uuml;r Stahlbeton</div>
+                    <p>Conformiteit met de DAfStb-richtlijn voor niet-metalen wapening in betonconstructies. Referentiekader voor ontwerp en uitvoering.</p>
+                    <div class="cert-products"><span class="cert-product">GRID</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>C-mark</h4>
+                    <div class="cert-id">Productcertificering</div>
+                    <p>C-markering voor geselecteerde producten die voldoen aan specifieke prestatie-eisen voor niet-structurele toepassingen.</p>
+                    <div class="cert-products"><span class="cert-product">FLEX GRID Standard (select)</span><span class="cert-product">HYDRO 70</span></div>
+                </div>
+                <div class="cert-card">
+                    <h4>EN 846-2</h4>
+                    <div class="cert-id">Beproevingsmethode metselwerktoebehoren</div>
+                    <p>Getest conform EN 846-2 voor lintvoegwapening in metselwerk. Basis voor ontwerp volgens Eurocode 6.</p>
+                    <div class="cert-products"><span class="cert-product">BRIKSY Carbon</span></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top:50px; margin-bottom:20px;">Certificeringen concurrenten</h3>
+            <div class="table-wrap"><table class="tbl"><thead><tr><th>Fabrikant</th><th>Product</th><th>Certificering</th><th>Type</th><th>Scope</th></tr></thead><tbody>
+                <tr><td>Sch&ouml;ck</td><td>ComBAR</td><td>abZ Z-1.6-238, ETA-17/0603</td><td>GFRP staven</td><td>Structureel beton</td></tr>
+                <tr><td>Sch&ouml;ck</td><td>Isolink</td><td>ETA-13/0160</td><td>GFRP connectoren</td><td>Sandwichpanelen</td></tr>
+                <tr><td>Mapei</td><td>MapeWrap EQ</td><td>ETA-13/0950</td><td>FRCM systeem</td><td>Seismische versterking</td></tr>
+                <tr><td>Kerakoll</td><td>GeoSteel + GeoCalce</td><td>ETA-19/0364</td><td>SRG/FRCM</td><td>Seismische versterking</td></tr>
+                <tr><td>Sika</td><td>CarboDur / SikaWrap</td><td>ETA-13/0203, ICC-ES ESR-2390</td><td>FRP (epoxy)</td><td>Constructieve versterking</td></tr>
+                <tr><td>Ruredil/Ruregold</td><td>X Mesh</td><td>ETA-21/0774</td><td>FRCM (PBO/carbon)</td><td>Seismische versterking</td></tr>
+                <tr><td>Fidia</td><td>SRG systeem</td><td>ETA-20/0418</td><td>SRG</td><td>Seismische versterking</td></tr>
+                <tr><td>Bekaert</td><td>Murfor</td><td>CE (EN 845-3)</td><td>Staal lintvoeg</td><td>Metselwerkwapening</td></tr>
+                <tr><td>Leviat</td><td>AMR / Halfen ties</td><td>CE (EN 845-1/3), ETA</td><td>RVS staal</td><td>Metselwerk + spouw</td></tr>
+                <tr><td>Helifix</td><td>HeliBars / DryFix</td><td>BBA, CE (EN 845-1)</td><td>RVS staal (helix)</td><td>Remedial + spouw</td></tr>
+                <tr><td>Pultrall</td><td>V-ROD</td><td>CSA S807, ASTM D7957</td><td>GFRP/CFRP staven</td><td>Constructief (N-Amerika)</td></tr>
+                <tr><td>Saint-Gobain</td><td>Vertex Mesh</td><td>ETA-13/0392</td><td>E-glas mesh</td><td>ETICS</td></tr>
+                <tr><td>PCI</td><td>Pecitex</td><td>CE, AbP (DE)</td><td>AR glas mesh</td><td>Waterdichting</td></tr>
+                <tr><td>Fassa Bortolo</td><td>Fassanet</td><td>EAD 040016, ETA, BBA, NF</td><td>AR glas mesh</td><td>ETICS + CRM</td></tr>
+            </tbody></table></div>
+
+            <h3 style="margin-top:50px; margin-bottom:20px;">Relevante normen &amp; richtlijnen</h3>
+            <div class="grid-2">
+                <div style="background:var(--off-white); border-radius:12px; padding:24px;">
+                    <h4 style="font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:var(--purple); margin-bottom:12px;">Europese normen</h4>
+                    <div style="font-size:13px; color:var(--gray-700); line-height:2.2;">
+                        <strong>EAD 260057-00-0303</strong> &mdash; FRP wapening voor beton<br>
+                        <strong>EAD 340392-00-0104</strong> &mdash; FRP connectoren/ankers<br>
+                        <strong>EN 845-1</strong> &mdash; Spouwankers en muurverbinders<br>
+                        <strong>EN 845-3</strong> &mdash; Lintvoegwapening metselwerk<br>
+                        <strong>EN 10080</strong> &mdash; Staal voor betonwapening<br>
+                        <strong>EN 13496</strong> &mdash; Glasvezel mesh voor ETICS<br>
+                        <strong>EN 1992 (EC2)</strong> &mdash; Eurocode 2: Betonconstructies<br>
+                        <strong>EN 1996 (EC6)</strong> &mdash; Eurocode 6: Metselwerk
+                    </div>
+                </div>
+                <div style="background:var(--off-white); border-radius:12px; padding:24px;">
+                    <h4 style="font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:var(--purple); margin-bottom:12px;">Overige richtlijnen</h4>
+                    <div style="font-size:13px; color:var(--gray-700); line-height:2.2;">
+                        <strong>DAfStb-richtlijn</strong> &mdash; Niet-metalen wapening (DE)<br>
+                        <strong>fib Bulletin 40/90</strong> &mdash; FRP reinforcement for RC<br>
+                        <strong>CNR-DT 215</strong> &mdash; Italiaanse FRCM-richtlijn<br>
+                        <strong>ACI 440</strong> &mdash; FRP reinforcement (VS)<br>
+                        <strong>ACI 549</strong> &mdash; FRCM systems (VS)<br>
+                        <strong>CSA S807</strong> &mdash; FRP rebar (Canada)<br>
+                        <strong>ICC-ES AC434</strong> &mdash; FRP strengthening (VS)<br>
+                        <strong>NTC 2018</strong> &mdash; Italiaanse technische normen bouw
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 7: REFERENTIES                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-referenties">
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Referentieprojecten</div>
+                <h2>Bewezen in de praktijk</h2>
+                <p class="section-desc">Van bruggen en parkeergarages tot gevelrenovatie en zwembaden.</p>
+            </div>
+            <div class="grid-3">
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Bosporous_bridge/solidian-references-bosporous-bridge-1.jpg" alt="Bosporus Bridge" loading="lazy"><div class="app-card-overlay"><h4>Bosporus Bridge</h4><p>Lichtgewicht gevelpanelen &bull; Turkije</p></div></div>
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Pedestrian-bridge-Albstadt-Ebingen/solidian-references-Pedestrian-bridge-Albstadt-Ebingen-1.jpg" alt="Voetgangersbrug" loading="lazy"><div class="app-card-overlay"><h4>Voetgangersbrug Albstadt</h4><p>Carbon-bewapend dekblad &bull; Duitsland</p></div></div>
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Underground_parking_garage_Marquardtbau_Stuttgart/solidian-Underground-parking-garage-Marquardtbau-Stuttgart-1.jpg" alt="Parkeergarage" loading="lazy"><div class="app-card-overlay"><h4>Parkeergarage Stuttgart</h4><p>Structurele versterking &bull; Duitsland</p></div></div>
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Neviges-pilgrimage-cathedral/solidian-references-Neviges-pilgrimage-cathedral-1.jpg" alt="Kathedraal" loading="lazy"><div class="app-card-overlay"><h4>Bedevaartskathedraal Neviges</h4><p>Renovatie &amp; herstel &bull; Duitsland</p></div></div>
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Swimming-pool-reinforced-with-solidian-ANTICRACK/solidian-references-Swimming-pool-reinforced-with-solidian-ANTICRACK-1.jpg" alt="Zwembad" loading="lazy"><div class="app-card-overlay"><h4>Zwembadconstructie</h4><p>ANTICRACK scheurbeheersing</p></div></div>
+                <div class="app-card"><img src="https://www.solidian-kelteks.com/images/references/Anderten%20Lock/Schleuse_Anderten_3.jpg" alt="Sluis" loading="lazy"><div class="app-card-overlay"><h4>Sluis Anderten</h4><p>Waterbouw &bull; Duitsland</p></div></div>
+            </div>
+
+            <div style="margin-top:50px;">
+                <h3 style="text-align:center; margin-bottom:24px;">Toepassingsgebieden</h3>
+                <div class="grid-4">
+                    <div class="card"><div class="card-icon red">&#127959;</div><h4>Bruggen &amp; infra</h4><p>Voetgangersbruggen, verkeersbruggen, sluizen</p></div>
+                    <div class="card"><div class="card-icon green">&#127970;</div><h4>Gevels &amp; panelen</h4><p>Sandwichpanelen, curtain walls, prefab</p></div>
+                    <div class="card"><div class="card-icon purple">&#128167;</div><h4>Waterbouw</h4><p>Riool, maritiem, zwembaden, kelders</p></div>
+                    <div class="card"><div class="card-icon blue">&#128295;</div><h4>Renovatie &amp; retrofit</h4><p>Versterking, seismisch, metselwerk</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>Productoverzicht samengesteld op basis van Solidian &amp; Kelteks documentatie &bull; <a href="https://www.solidian-kelteks.com" target="_blank">solidian-kelteks.com</a></p>
+    <p style="margin-top:6px; font-size:11px; opacity:.6;">Informatief overzicht, geen officieel Solidian-document. Raadpleeg altijd de offici&euml;le datasheets voor ontwerpberekeningen.</p>
+</footer>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
+// Nav shadow
+window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+</script>
+
+</body>
+</html>
